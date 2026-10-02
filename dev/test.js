@@ -27,7 +27,9 @@ try {
   let d = await get();
   assert.equal(d.settings.name, 'Movie Night');
   assert.deepEqual(d.categories.map((c) => c.name), ['Sesame Street songs', 'Backyardigans', 'More music', 'More cartoons']);
-  assert.equal(d.videos.length, 5 + 80); step('setup imports the chosen packs');
+  const packs = (await get('?packs')).packs;
+  const size = (id) => packs.find((p) => p.id === id).count;
+  assert.equal(d.videos.length, size('sesame-street-songs') + size('backyardigans-en')); step('setup imports the chosen packs');
   assert.equal((await post({ action: 'setup', lang: 'pt' })).error, 'already_set_up'); step('setup runs only once');
 
   const music = d.categories[2].id, sesame = d.categories[0].id;
