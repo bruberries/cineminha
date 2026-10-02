@@ -142,7 +142,22 @@ select {
 @media (prefers-reduced-motion: reduce) { .big-btn, #end .stars span { animation: none; } }
 #progress { position: fixed; left: 0; right: 0; bottom: 0; height: 8px; background: rgba(255,255,255,.12); z-index: 4; }
 #bar { height: 100%; width: 0; background: var(--popcorn); transition: width .25s linear; }
-#exit-spot { position: fixed; top: 0; left: 0; width: 72px; height: 72px; z-index: 5; }
+/* Visible "back" for grown-ups: it only works when held, while a ring fills around it. */
+#exit-spot {
+  position: fixed; z-index: 5; top: max(12px, env(safe-area-inset-top)); left: max(12px, env(safe-area-inset-left));
+  width: 52px; height: 52px; border-radius: 50%; display: grid; place-items: center;
+  background: rgba(15, 20, 35, .55); color: var(--ink); touch-action: none;
+}
+#exit-spot svg { width: 24px; height: 24px; }
+/* After the first 30 s it fades out but still works when held, for grown-ups who know it's there. */
+#exit-spot { transition: opacity .6s ease; }
+#exit-spot.faded { opacity: 0; }
+#exit-spot::before {
+  content: ""; position: absolute; inset: -5px; border-radius: 50%;
+  background: conic-gradient(var(--popcorn) calc(var(--p, 0) * 1turn), transparent 0);
+  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 5px), #000 calc(100% - 4px));
+          mask: radial-gradient(farthest-side, transparent calc(100% - 5px), #000 calc(100% - 4px));
+}
 #err { position: absolute; inset: 0; z-index: 4; display: grid; place-items: center; text-align: center; padding: 24px; background: var(--night); color: var(--ink-dim); }
 
 /* ---------- Parent gate + panel ---------- */
@@ -244,7 +259,7 @@ input:focus { border-color: var(--popcorn); outline: none; }
     <div id="err" hidden data-i18n-html="cantPlay"></div>
   </div>
   <div id="progress"><div id="bar"></div></div>
-  <div id="exit-spot" aria-hidden="true"></div>
+  <button id="exit-spot" data-i18n-label="holdBack"><svg><use href="#i-back"/></svg></button>
 </section>
 
 <section id="gate" class="sheet" hidden>
@@ -406,6 +421,7 @@ function openVideo(v) {
   $('#player-screen').hidden = false;
   $('#end').hidden = true; $('#err').hidden = true;
   $('#bar').style.width = '0';
+  $('#exit-spot').classList.remove('faded');
   showCover(true);
   goFullscreen();
   const create = () => {
@@ -438,6 +454,8 @@ function showCover(on) {
   c.hidden = !on;
 }
 
+const EXIT_VISIBLE_FOR = 30; // seconds the back button stays visible
+
 function startPoll() {
   clearInterval(poll);
   poll = setInterval(() => {
@@ -445,6 +463,7 @@ function startPoll() {
     const d = player.getDuration(), t = player.getCurrentTime();
     if (d > 0) {
       $('#bar').style.width = Math.min(100, (t / d) * 100) + '%';
+      $('#exit-spot').classList.toggle('faded', t > EXIT_VISIBLE_FOR);
       // Cover a fraction of a second early so YouTube's end screen with suggestions never shows.
       if (t >= d - 0.35) finish();
     }
@@ -531,7 +550,21 @@ function onHold(el, ms, cb) {
 }
 onHold($('#logo'), 3000, openGate);
 onHold($('#start-logo'), 3000, openGate);
-onHold($('#exit-spot'), 3000, () => { ended = true; history.back(); });
+// The back button in the player: hold 1.5 s while the ring fills. A quick tap does nothing.
+(function holdToExit(el, ms) {
+  let t0 = 0, raf = 0;
+  const set = (p) => el.style.setProperty('--p', p);
+  const stop = () => { cancelAnimationFrame(raf); raf = 0; set(0); };
+  const tick = (now) => {
+    const p = Math.min(1, (now - t0) / ms);
+    set(p);
+    if (p < 1) raf = requestAnimationFrame(tick);
+    else { stop(); ended = true; history.back(); }
+  };
+  el.addEventListener('pointerdown', (e) => { e.preventDefault(); stop(); t0 = performance.now(); raf = requestAnimationFrame(tick); });
+  ['pointerup', 'pointerleave', 'pointercancel'].forEach((ev) => el.addEventListener(ev, stop));
+  el.addEventListener('contextmenu', (e) => e.preventDefault());
+})($('#exit-spot'), 1500);
 
 let answer = 0;
 function openGate() {

@@ -1,322 +1,202 @@
 [
 {
-"id": "AxGJxX_c7Y4",
-"title": "O Tesouro do Pirata (ep. 1)"
-},
-{
-"id": "UIjIzyOZCx8",
-"title": "O Coração da Floresta (ep. 2)"
-},
-{
-"id": "n9Mikq5nVBM",
-"title": "A Criatura da Neve (ep. 3)"
-},
-{
-"id": "mZ6P3R0bp_w",
-"title": "Os Defensores do Forte (ep. 4)"
-},
-{
-"id": "TzESXo4H-1M",
-"title": "Missão Secreta (ep. 5)"
-},
-{
-"id": "5eoVjmquvGs",
-"title": "Os Fantasminhas (ep. 6)"
-},
-{
-"id": "VDv3QbJNmdg",
-"title": "No Velho Oeste (ep. 7)"
-},
-{
-"id": "nxEoFQ-z4KY",
-"title": "A Princesa do Egito (ep. 8)"
-},
-{
-"id": "pIY3Nn0RngE",
-"title": "O Tesouro do Pirata (ep. 9)"
-},
-{
-"id": "U47K7ZaNrTY",
-"title": "Os Vikings (ep. 10)"
-},
-{
-"id": "3nqHZZKvmgM",
-"title": "A Ilha Deserta (ep. 11)"
-},
-{
 "id": "fueMMrnyBFY",
 "title": "Uma Superaventura (ep. 12)"
-},
-{
-"id": "54RDDUrKgHA",
-"title": "A Grande Expedição (ep. 13)"
-},
-{
-"id": "8t0JY8Ry94I",
-"title": "Uma Banda Diferente (ep. 14)"
-},
-{
-"id": "JgnOm5cNEoE",
-"title": "A Onda do Surf (ep. 15)"
-},
-{
-"id": "J07A5VIYPhA",
-"title": "Eureka! (ep. 16)"
-},
-{
-"id": "rSfK571WN4E",
-"title": "A Grande Corrida (ep. 17)"
 },
 {
 "id": "baTizguywuQ",
 "title": "Fera do Futebol (ep. 18)"
 },
 {
-"id": "XLtZ6f-b2Gw",
-"title": "Festa na Caverna (ep. 19)"
-},
-{
-"id": "JqDELyS_TiA",
-"title": "A Aventura do Chí (ep. 20)"
-},
-{
-"id": "OYBZRAjNfXY",
-"title": "Marte, Aqui Vamos Nós (ep. 21)"
-},
-{
-"id": "R9HVH_asEJI",
-"title": "O Samurai das Tortas (ep. 22)"
-},
-{
-"id": "IQB42NfYuu0",
-"title": "Com Medo de Você (ep. 23)"
-},
-{
-"id": "BDtjra6I2ZE",
-"title": "Quem Foi? (ep. 24)"
-},
-{
-"id": "kbCekIaaLs8",
-"title": "A Lenda das Irmàs Vulcão (ep. 25)"
-},
-{
-"id": "ghjCijTRk6o",
-"title": "O Segredo da Neve (ep. 26)"
-},
-{
-"id": "TsKYJHDNH4Q",
-"title": "O Monstro do Pântano (ep. 27)"
-},
-{
-"id": "vkKgYZWxtJ0",
-"title": "A Competição (ep. 28)"
-},
-{
 "id": "1-m4gvsHWGg",
 "title": "Entrega Especial (ep. 29)"
 },
 {
-"id": "e8i3j-Umpvk",
-"title": "Superespião Internacional (1ª Parte) (ep. 30)"
-},
-{
-"id": "h7vrRW4iZog",
-"title": "Superespião Internacional (2ª Parte) (ep. 31)"
-},
-{
-"id": "GeaIsuoMtLc",
-"title": "Mudanças da Aríbia (ep. 32)"
-},
-{
-"id": "JJjfJCz2iUw",
-"title": "Policiais e Robôs (ep. 33)"
-},
-{
-"id": "RbIjn_AlvF0",
-"title": "Sinbad Navega Sozinho (ep. 34)"
-},
-{
-"id": "bXGLtfKvfio",
-"title": "Os Melhores Palhaços do Mundo (ep. 35)"
-},
-{
-"id": "J8Pz0IM93Mk",
-"title": "Salvando o Dia (ep. 36)"
-},
-{
-"id": "BrnU5EBOBJg",
-"title": "No Fundo do Mar (ep. 37)"
-},
-{
-"id": "tUrgczucT6U",
-"title": "Últimas Notícias (ep. 38)"
-},
-{
-"id": "CLDa94M_0PM",
-"title": "Peguem Aquela Borboleta (ep. 39)"
-},
-{
-"id": "OFQ6k2uXoHo",
-"title": "Um Problema Gigante (ep. 40)"
-},
-{
-"id": "uhDIWkRhyPQ",
-"title": "Quem Está Aí? (ep. 41)"
-},
-{
-"id": "O-ZhKVGiySg",
-"title": "Raquetes Poderosas (ep. 42)"
-},
-{
-"id": "PY3o9XEai_I",
-"title": "Jornada Coletora (ep. 43)"
-},
-{
-"id": "jKvcrsAX2r0",
-"title": "Mensagens Cantadas (ep. 44)"
-},
-{
-"id": "9PupgNDTJcc",
-"title": "Controle de Pragas (ep. 45)"
+"id": "AxGJxX_c7Y4",
+"title": "O Tesouro do Pirata (ep. 1)"
 },
 {
 "id": "5jLYGo7VxeE",
 "title": "A Pizzaria (ep. 46)"
 },
 {
-"id": "IiMGmX8e_jg",
-"title": "Viagem ao Centro da Terra (ep. 47)"
+"id": "IQB42NfYuu0",
+"title": "Com Medo de Você (ep. 23)"
+},
+{
+"id": "rSfK571WN4E",
+"title": "A Grande Corrida (ep. 17)"
 },
 {
 "id": "7dgVk8uqpCw",
 "title": "Manchetes de Jornal (ep. 48)"
 },
 {
-"id": "7ug1wpKhAF8",
-"title": "O Conto dos Bravos Cavaleiros (1ª Parte) (ep. 49)"
+"id": "5eoVjmquvGs",
+"title": "Os Fantasminhas (ep. 6)"
 },
 {
-"id": "cNIxP7y7QcI",
-"title": "O Conto dos Bravos Cavaleiros (2ª Parte) (ep. 50)"
-},
-{
-"id": "6PUkqKf9Quw",
-"title": "O Mestre do Disfarce (ep. 51)"
-},
-{
-"id": "5WClfc8jgT0",
-"title": "Basquete no Monte Olimpo (ep. 52)"
-},
-{
-"id": "6QHFsj-pI9I",
-"title": "A Corrida de Golfinhos (ep. 53)"
-},
-{
-"id": "kh0FBT6n5U0",
-"title": "O Melhor Amigo do Homem das Cavernas (ep. 54)"
-},
-{
-"id": "DfE5FnLt6BE",
-"title": "Ajudantes do Espaço (ep. 55)"
-},
-{
-"id": "qzx4pudonnA",
-"title": "Robin Hood, O Limpo (ep. 56)"
-},
-{
-"id": "cjo9tgZXC18",
-"title": "A Fuga da Aldeia dos Contos de Fadas (ep. 57)"
-},
-{
-"id": "dXPKQx89j3E",
-"title": "O Acampamento Pirata (ep. 58)"
-},
-{
-"id": "F337vALacJg",
-"title": "Os Dois Mosqueteiros (ep. 59)"
-},
-{
-"id": "rDg8rYrHGaU",
-"title": "A Coletora Mascarada (ep. 60)"
-},
-{
-"id": "nfQGZ9qZ9Lw",
-"title": "A Fúria dos Robôs (1ª Parte) (ep. 61)"
-},
-{
-"id": "YX6-QJTRXQs",
-"title": "A Fúria dos Robôs (2ª Parte) (ep. 62)"
-},
-{
-"id": "NJfget3aX2c",
-"title": "Peguem Aquele Trem! (ep. 63)"
-},
-{
-"id": "ma1lSoHEumo",
-"title": "O Ataque do Hominhoco Gigante (ep. 64)"
-},
-{
-"id": "T59HbTVZMTE",
-"title": "Dragão Express (ep. 65)"
-},
-{
-"id": "fb1mxwl9ngU",
-"title": "O Poder da Flor (ep. 66)"
-},
-{
-"id": "TF3SEicNP2Q",
-"title": "O Bicho-Papão Brincalhão (ep. 67)"
-},
-{
-"id": "IxaFviDpDMM",
-"title": "Sigam a Pena (ep. 68)"
+"id": "e8i3j-Umpvk",
+"title": "Superespião Internacional (1ª Parte) (ep. 30)"
 },
 {
 "id": "aaf1izHpoCQ",
 "title": "A Fuga (ep. 69)"
 },
 {
-"id": "GlV-eONv_00",
-"title": "Os Superelfos Salvam o Natal (ep. 70)"
+"id": "kh0FBT6n5U0",
+"title": "O Melhor Amigo do Homem das Cavernas (ep. 54)"
 },
 {
-"id": "TtN3SjUR3rk",
-"title": "Los Galacticos (ep. 71)"
+"id": "R9HVH_asEJI",
+"title": "O Samurai das Tortas (ep. 22)"
 },
 {
-"id": "I6ys9u8xa7o",
-"title": "Fábrica de Meias (ep. 72)"
+"id": "O-ZhKVGiySg",
+"title": "Raquetes Poderosas (ep. 42)"
 },
 {
-"id": "-ikzeyPFkAY",
-"title": "O Meteoro (ep. 73)"
+"id": "JqDELyS_TiA",
+"title": "A Aventura do Chí (ep. 20)"
 },
 {
-"id": "QENQhokEemg",
-"title": "Missão Elefante (ep. 74)"
+"id": "UIjIzyOZCx8",
+"title": "O Coração da Floresta (ep. 2)"
 },
 {
-"id": "sRVAa_Hvvos",
-"title": "O Skate Mágico (ep. 75)"
+"id": "qzx4pudonnA",
+"title": "Robin Hood, O Limpo (ep. 56)"
 },
 {
-"id": "SwQkFSc6hG8",
-"title": "Pablo e os Lobinhos (ep. 76)"
+"id": "TzESXo4H-1M",
+"title": "Missão Secreta (ep. 5)"
+},
+{
+"id": "BDtjra6I2ZE",
+"title": "Quem Foi? (ep. 24)"
+},
+{
+"id": "8t0JY8Ry94I",
+"title": "Uma Banda Diferente (ep. 14)"
+},
+{
+"id": "h7vrRW4iZog",
+"title": "Superespião Internacional (2ª Parte) (ep. 31)"
+},
+{
+"id": "fb1mxwl9ngU",
+"title": "O Poder da Flor (ep. 66)"
+},
+{
+"id": "VDv3QbJNmdg",
+"title": "No Velho Oeste (ep. 7)"
+},
+{
+"id": "YX6-QJTRXQs",
+"title": "A Fúria dos Robôs (2ª Parte) (ep. 62)"
+},
+{
+"id": "cNIxP7y7QcI",
+"title": "O Conto dos Bravos Cavaleiros (2ª Parte) (ep. 50)"
+},
+{
+"id": "kbCekIaaLs8",
+"title": "A Lenda das Irmàs Vulcão (ep. 25)"
+},
+{
+"id": "cjo9tgZXC18",
+"title": "A Fuga da Aldeia dos Contos de Fadas (ep. 57)"
+},
+{
+"id": "n9Mikq5nVBM",
+"title": "A Criatura da Neve (ep. 3)"
+},
+{
+"id": "jKvcrsAX2r0",
+"title": "Mensagens Cantadas (ep. 44)"
+},
+{
+"id": "3nqHZZKvmgM",
+"title": "A Ilha Deserta (ep. 11)"
 },
 {
 "id": "e_ho88JJ0HU",
 "title": "Os Quatro Incríveis (ep. 77)"
 },
 {
-"id": "XQRasCWel0w",
-"title": "O Grande Café Espacial (ep. 78)"
+"id": "vkKgYZWxtJ0",
+"title": "A Competição (ep. 28)"
+},
+{
+"id": "pIY3Nn0RngE",
+"title": "O Tesouro do Pirata (ep. 9)"
+},
+{
+"id": "7ug1wpKhAF8",
+"title": "O Conto dos Bravos Cavaleiros (1ª Parte) (ep. 49)"
+},
+{
+"id": "OYBZRAjNfXY",
+"title": "Marte, Aqui Vamos Nós (ep. 21)"
+},
+{
+"id": "JJjfJCz2iUw",
+"title": "Policiais e Robôs (ep. 33)"
+},
+{
+"id": "uhDIWkRhyPQ",
+"title": "Quem Está Aí? (ep. 41)"
+},
+{
+"id": "IiMGmX8e_jg",
+"title": "Viagem ao Centro da Terra (ep. 47)"
+},
+{
+"id": "6QHFsj-pI9I",
+"title": "A Corrida de Golfinhos (ep. 53)"
+},
+{
+"id": "nxEoFQ-z4KY",
+"title": "A Princesa do Egito (ep. 8)"
+},
+{
+"id": "54RDDUrKgHA",
+"title": "A Grande Expedição (ep. 13)"
+},
+{
+"id": "JgnOm5cNEoE",
+"title": "A Onda do Surf (ep. 15)"
+},
+{
+"id": "bXGLtfKvfio",
+"title": "Os Melhores Palhaços do Mundo (ep. 35)"
+},
+{
+"id": "6PUkqKf9Quw",
+"title": "O Mestre do Disfarce (ep. 51)"
+},
+{
+"id": "9PupgNDTJcc",
+"title": "Controle de Pragas (ep. 45)"
+},
+{
+"id": "dXPKQx89j3E",
+"title": "O Acampamento Pirata (ep. 58)"
+},
+{
+"id": "U47K7ZaNrTY",
+"title": "Os Vikings (ep. 10)"
+},
+{
+"id": "OFQ6k2uXoHo",
+"title": "Um Problema Gigante (ep. 40)"
+},
+{
+"id": "rDg8rYrHGaU",
+"title": "A Coletora Mascarada (ep. 60)"
 },
 {
 "id": "YGAWdUZ7YlM",
 "title": "Os Incríveis Mergulhinis (ep. 79)"
-},
-{
-"id": "06aaw-b7AW4",
-"title": "O Dragão Não Tão Bonzinho (ep. 80)"
 }
 ]

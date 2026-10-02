@@ -8,7 +8,7 @@ Cineminha ("little cinema" in Portuguese) is a small app for your phone or table
 
 - **Only your list.** Videos are added by the parents, from a page protected by a PIN.
 - **No related videos.** When a video pauses or ends, the app covers YouTube's suggestions with its own screen.
-- **One video at a time, to the end.** There is no seek bar, and the back button does nothing until the video ends.
+- **One video at a time, to the end.** There is no seek bar, and the phone's back button does nothing until the video ends. Grown-ups can leave by holding the on-screen back button.
 - **Music and cartoons.** The home screen has two big buttons. Each category shows 3 highlights and a button to see the rest.
 - **Both parents can add videos** from any phone or computer, and the video shows up right away.
 - **Ready-made packs** to start with: songs and cartoons from official channels, in Portuguese, English and Italian.
@@ -49,7 +49,7 @@ Didn't get the database question in step 2? After the deploy, open your project 
 
 **From inside the app:** hold the app's name at the top for 3 seconds and answer a multiplication question. It opens the parents' area.
 
-**Leave a video before it ends:** hold the top-left corner of the screen for 3 seconds.
+**Picked the wrong video?** Hold the back button in the top-left corner for 1.5 seconds, until the yellow ring closes. It shows for the first 30 seconds of each video, then turns invisible but still works in the same spot. A quick tap does nothing, so small kids don't leave by accident.
 
 **Highlights:** the first 3 videos of each category are the ones on the home screen. In the parents' area, use **Make highlight**, ↑ and ↓ to choose them.
 

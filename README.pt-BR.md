@@ -8,7 +8,7 @@ O Cineminha é um app para o celular ou tablet. A criança vê miniaturas grande
 
 - **Só a sua lista.** Quem adiciona vídeos são os pais, por uma página protegida por senha.
 - **Sem vídeos relacionados.** Quando o vídeo pausa ou termina, o app cobre as sugestões do YouTube com uma tela própria.
-- **Um vídeo de cada vez, até o fim.** Não tem barra para adiantar, e o botão voltar não funciona até o vídeo acabar.
+- **Um vídeo de cada vez, até o fim.** Não tem barra para adiantar, e o botão voltar do celular não funciona até o vídeo acabar. Os adultos saem segurando o botão de voltar da tela.
 - **Músicas e desenhos.** A tela inicial tem dois botões grandes. Cada categoria mostra 3 destaques e um botão para ver o resto.
 - **Os dois pais adicionam vídeos** de qualquer celular ou computador, e o vídeo aparece na hora.
 - **Pacotes prontos** para começar: músicas e desenhos de canais oficiais, em português, inglês e italiano.
@@ -49,7 +49,7 @@ A pergunta do banco de dados não apareceu no passo 2? Depois do deploy, abra o 
 
 **De dentro do app:** segure o nome do app no topo por 3 segundos e responda uma conta de multiplicar. Abre a área dos pais.
 
-**Sair de um vídeo antes do fim:** segure o canto superior esquerdo da tela por 3 segundos.
+**Escolheu o vídeo errado?** Segure o botão de voltar, no canto superior esquerdo, por 1,5 segundo, até o anel amarelo fechar. Ele aparece nos primeiros 30 segundos de cada vídeo e depois fica invisível, mas continua funcionando no mesmo lugar. Um toque rápido não faz nada, então a criança não sai sem querer.
 
 **Destaques:** os 3 primeiros vídeos de cada categoria são os que aparecem na tela inicial. Na área dos pais, use **Pôr em destaque**, ↑ e ↓ para escolher.
 
