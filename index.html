@@ -1,0 +1,561 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<meta name="theme-color" content="#1f2a44">
+<title>Cineminha</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Nunito:wght@400;700&display=swap">
+<style>
+/* Layout: a two-tile chooser, then categories of three highlights; playback takes the whole screen. */
+:root {
+  --night: #1f2a44;      /* page ground, like a dark cinema */
+  --night-2: #2b3a5e;    /* raised surfaces */
+  --popcorn: #ffd23f;    /* the one accent: play buttons, focus */
+  --cherry: #ff6b6b;     /* remove / danger, parent mode only */
+  --mint: #4ecdc4;       /* success */
+  --ink: #fdfaf2;        /* text on night */
+  --ink-dim: #b9c1d9;
+  --display: "Baloo 2", "Trebuchet MS", system-ui, sans-serif;
+  --body: "Nunito", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --r: 22px;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html, body { height: 100%; }
+body {
+  margin: 0; background: var(--night); color: var(--ink); font-family: var(--body);
+  -webkit-user-select: none; user-select: none; -webkit-touch-callout: none;
+  overscroll-behavior: none;
+}
+[hidden] { display: none !important; }
+button { font: inherit; color: inherit; border: 0; background: none; cursor: pointer; }
+button:focus-visible, input:focus-visible { outline: 4px solid var(--popcorn); outline-offset: 3px; }
+
+/* ---------- Start: music or cartoons ---------- */
+#start {
+  min-height: 100%; display: flex; flex-direction: column; gap: 18px;
+  padding: max(16px, env(safe-area-inset-top)) 16px max(24px, env(safe-area-inset-bottom));
+}
+#start header { display: flex; justify-content: center; padding-top: 8px; }
+.choices { flex: 1; display: grid; grid-template-rows: 1fr 1fr; gap: 18px; max-width: 760px; width: 100%; margin: 0 auto; }
+@media (orientation: landscape) { .choices { grid-template-rows: none; grid-template-columns: 1fr 1fr; } }
+.choice {
+  position: relative; border-radius: 32px; background: var(--c); color: var(--night);
+  display: grid; place-items: center; align-content: center; gap: 8px; min-height: 180px;
+  box-shadow: 0 8px 0 rgba(0,0,0,.35); transition: transform .12s ease;
+}
+.choice:active { transform: scale(.97); }
+.choice svg { width: min(38vw, 30vh, 190px); height: min(38vw, 30vh, 190px); }
+.choice span { font-family: var(--display); font-weight: 800; font-size: 1.6rem; }
+.home-top { position: relative; }
+#home-back { position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 52px; height: 52px; }
+#home-back svg { width: 24px; height: 24px; }
+
+/* ---------- Home ---------- */
+#home { min-height: 100%; padding: max(16px, env(safe-area-inset-top)) 16px max(24px, env(safe-area-inset-bottom)); }
+#home header { display: flex; align-items: center; justify-content: center; padding-block: 8px 18px; }
+.logo {
+  font-family: var(--display); font-weight: 800; font-size: 2.1rem; margin: 0; letter-spacing: .5px;
+  display: flex; align-items: center; gap: 10px; padding: 4px 10px; border-radius: 14px;
+}
+.logo svg { width: 1.3em; height: 1.3em; }
+#cats { display: grid; gap: 26px; max-width: 980px; margin: 0 auto; }
+.cat { display: grid; gap: 10px; }
+.cat-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 52px; }
+.cat h2 {
+  margin: 0; font-family: var(--display); font-weight: 800; font-size: 1.35rem;
+  display: flex; align-items: center; gap: 10px;
+}
+.cat h2::before { content: ""; width: 14px; height: 14px; border-radius: 50%; background: var(--c); }
+/* Highlights: three across on every screen. The "see all" screen uses two columns on a phone, four when wider. */
+.grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+#cat-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+@media (orientation: landscape) and (min-width: 560px) { #cat-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+#cat-grid { max-width: 980px; margin: 0 auto; }
+.more {
+  width: 52px; height: 52px; flex: none; border-radius: 16px; background: var(--c);
+  display: grid; place-items: center; box-shadow: 0 4px 0 rgba(0,0,0,.35); transition: transform .12s ease;
+}
+.more:active { transform: scale(.94); }
+.more svg { width: 26px; height: 26px; fill: var(--night); }
+#cat-screen { min-height: 100%; padding: max(16px, env(safe-area-inset-top)) 16px max(24px, env(safe-area-inset-bottom)); }
+.cat-top { display: flex; align-items: center; gap: 14px; max-width: 980px; margin: 0 auto 16px; }
+.cat-top h2 { margin: 0; font-family: var(--display); font-weight: 800; font-size: 1.6rem; }
+.round {
+  width: 64px; height: 64px; flex: none; border-radius: 50%; background: var(--c, var(--popcorn)); color: var(--night);
+  display: grid; place-items: center; box-shadow: 0 4px 0 rgba(0,0,0,.35);
+}
+.round svg { width: 30px; height: 30px; }
+select {
+  width: 100%; font: inherit; font-size: 1.05rem; color: var(--ink); background: var(--night-2);
+  border: 2px solid transparent; border-radius: 12px; padding: 12px 14px;
+}
+.poster {
+  position: relative; display: block; width: 100%; aspect-ratio: 16 / 9; max-width: 100%;
+  border-radius: var(--r); overflow: hidden; background: var(--night-2);
+  box-shadow: 0 6px 0 rgba(0,0,0,.35); transition: transform .12s ease;
+}
+.poster:active { transform: scale(.97); }
+.cat .poster { border-radius: 14px; box-shadow: 0 4px 0 rgba(0,0,0,.35); }
+.cat .poster .play { width: 30px; height: 30px; right: 6px; bottom: 6px; }
+.cat .play svg { width: 15px; height: 15px; margin-left: 2px; }
+.poster img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.poster .play {
+  position: absolute; right: 8px; bottom: 8px; width: 40px; height: 40px; border-radius: 50%;
+  background: var(--popcorn); display: grid; place-items: center; box-shadow: 0 3px 0 rgba(0,0,0,.3);
+}
+.play svg { width: 20px; height: 20px; margin-left: 3px; fill: var(--night); }
+#empty, #setup-needed { max-width: 34rem; margin: 10vh auto 0; text-align: center; color: var(--ink-dim); line-height: 1.5; }
+#empty strong, #setup-needed strong { color: var(--ink); font-family: var(--display); font-size: 1.4rem; display: block; margin-bottom: 6px; }
+
+/* ---------- Player ---------- */
+#player-screen { position: fixed; inset: 0; background: #000; display: grid; place-items: center; z-index: 10; }
+.stage { position: relative; width: min(100vw, calc(100vh * 16 / 9)); aspect-ratio: 16 / 9; max-width: 100%; }
+#yt, .stage iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+#shield { position: absolute; inset: 0; z-index: 2; }  /* swallows taps so the YouTube logo/title can't be reached */
+.cover {
+  position: absolute; inset: 0; z-index: 3; display: grid; place-items: center;
+  background: #000 center / cover no-repeat;
+}
+.cover::before { content: ""; position: absolute; inset: 0; background: rgba(15, 20, 35, .45); }
+.big-btn {
+  position: relative; width: 132px; height: 132px; border-radius: 50%; background: var(--popcorn);
+  display: grid; place-items: center; box-shadow: 0 8px 0 rgba(0,0,0,.35);
+  animation: breathe 1.8s ease-in-out infinite;
+}
+.big-btn svg { width: 58px; height: 58px; fill: var(--night); }
+#cover .big-btn svg { margin-left: 8px; }
+#end { background: var(--night); }
+#end::before { display: none; }
+#end .stars { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+#end .stars span {
+  position: absolute; font-size: 2.4rem; animation: pop .9s ease-out both;
+}
+@keyframes breathe { 50% { transform: scale(1.07); } }
+@keyframes pop { from { transform: scale(0) rotate(-40deg); opacity: 0; } to { transform: scale(1) rotate(0); opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .big-btn, #end .stars span { animation: none; } }
+#progress { position: fixed; left: 0; right: 0; bottom: 0; height: 8px; background: rgba(255,255,255,.12); z-index: 4; }
+#bar { height: 100%; width: 0; background: var(--popcorn); transition: width .25s linear; }
+#exit-spot { position: fixed; top: 0; left: 0; width: 72px; height: 72px; z-index: 5; }
+#err { position: absolute; inset: 0; z-index: 4; display: grid; place-items: center; text-align: center; padding: 24px; background: var(--night); color: var(--ink-dim); }
+
+/* ---------- Parent gate + panel ---------- */
+.sheet {
+  position: fixed; inset: 0; z-index: 20; background: var(--night); overflow-y: auto;
+  padding: max(16px, env(safe-area-inset-top)) 16px max(24px, env(safe-area-inset-bottom));
+  -webkit-user-select: text; user-select: text;
+}
+.sheet .inner { max-width: 40rem; margin: 0 auto; display: grid; gap: 18px; }
+.sheet h2 { font-family: var(--display); font-weight: 800; font-size: 1.6rem; margin: 0; }
+.sheet p { margin: 0; color: var(--ink-dim); line-height: 1.5; }
+.row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+.field { display: grid; gap: 6px; }
+.field label { font-weight: 700; font-size: .95rem; }
+input {
+  width: 100%; font: inherit; font-size: 1.05rem; color: var(--ink); background: var(--night-2);
+  border: 2px solid transparent; border-radius: 12px; padding: 12px 14px;
+}
+input:focus { border-color: var(--popcorn); outline: none; }
+.btn { padding: 12px 18px; border-radius: 12px; font-weight: 700; background: var(--night-2); }
+.btn.primary { background: var(--popcorn); color: var(--night); }
+.btn.danger { background: var(--cherry); color: #2a0f0f; }
+.btn.small { padding: 8px 12px; font-size: .9rem; }
+.top { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+#gate .inner { max-width: 22rem; margin-top: 12vh; text-align: center; }
+#gate-q { font-family: var(--display); font-size: 2.4rem; font-weight: 800; color: var(--ink); }
+#setup-needed { display: grid; gap: 14px; justify-items: center; }
+#setup-needed a { color: var(--night); background: var(--popcorn); padding: 12px 18px; border-radius: 12px; font-weight: 700; text-decoration: none; }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-play" viewBox="0 0 24 24"><path d="M7 4.5v15a1 1 0 0 0 1.5.86l12.5-7.5a1 1 0 0 0 0-1.72L8.5 3.64A1 1 0 0 0 7 4.5z"/></symbol>
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z"/></symbol>
+  <symbol id="i-back" viewBox="0 0 24 24"><path d="M14.5 4.5 7 12l7.5 7.5" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+</svg>
+
+<div id="start" hidden>
+  <header>
+    <h1 class="logo" id="start-logo">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><rect x="3" y="7" width="26" height="19" rx="5" fill="#ffd23f"/><path d="M13 12v9l8-4.5z" fill="#1f2a44"/></svg>
+      <span class="app-name">Cineminha</span>
+    </h1>
+  </header>
+  <div class="choices">
+    <button class="choice" data-section="music" style="--c:#ffd23f" data-i18n-label="music">
+      <svg viewBox="0 0 120 120" aria-hidden="true">
+        <path d="M46 26 96 14v64" fill="none" stroke="#1f2a44" stroke-width="9" stroke-linejoin="round"/>
+        <path d="M46 26v62" stroke="#1f2a44" stroke-width="9"/>
+        <ellipse cx="34" cy="90" rx="16" ry="12" fill="#1f2a44"/><ellipse cx="84" cy="80" rx="16" ry="12" fill="#1f2a44"/>
+        <path d="M14 30c4-6 4-12 0-18M22 36c8-10 8-22 0-32" fill="none" stroke="#ff6b6b" stroke-width="5" stroke-linecap="round"/>
+      </svg>
+      <span data-i18n="music"></span>
+    </button>
+    <button class="choice" data-section="cartoons" style="--c:#4ecdc4" data-i18n-label="cartoons">
+      <svg viewBox="0 0 120 120" aria-hidden="true">
+        <path d="M44 14l16 16 16-16" fill="none" stroke="#1f2a44" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+        <rect x="10" y="30" width="100" height="74" rx="16" fill="#1f2a44"/>
+        <rect x="20" y="40" width="80" height="54" rx="10" fill="#fdfaf2"/>
+        <circle cx="47" cy="61" r="5" fill="#1f2a44"/><circle cx="73" cy="61" r="5" fill="#1f2a44"/>
+        <path d="M46 75c8 8 20 8 28 0" fill="none" stroke="#ff6b6b" stroke-width="5" stroke-linecap="round"/>
+      </svg>
+      <span data-i18n="cartoons"></span>
+    </button>
+  </div>
+</div>
+
+<div id="home">
+  <header class="home-top">
+    <button id="home-back" class="round" data-i18n-label="back" hidden><svg><use href="#i-back"/></svg></button>
+    <h1 class="logo" id="logo">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><rect x="3" y="7" width="26" height="19" rx="5" fill="#ffd23f"/><path d="M13 12v9l8-4.5z" fill="#1f2a44"/></svg>
+      <span class="app-name">Cineminha</span>
+    </h1>
+  </header>
+  <main id="cats"></main>
+  <div id="empty" hidden><strong data-i18n="emptyTitle"></strong><span id="empty-body"></span></div>
+  <div id="setup-needed" hidden><strong data-i18n="notSetUpTitle"></strong><span data-i18n="notSetUpBody"></span><a href="parents.html" data-i18n="openParents"></a></div>
+</div>
+
+<section id="cat-screen" hidden>
+  <header class="cat-top">
+    <button id="cat-back" class="round" data-i18n-label="back"><svg><use href="#i-back"/></svg></button>
+    <h2 id="cat-name"></h2>
+  </header>
+  <div id="cat-grid" class="grid"></div>
+</section>
+
+<section id="player-screen" hidden>
+  <div class="stage">
+    <div id="yt"></div>
+    <div id="shield"></div>
+    <button id="cover" class="cover" data-i18n-label="play"><span class="big-btn"><svg><use href="#i-play"/></svg></span></button>
+    <div id="end" class="cover" hidden>
+      <div class="stars" id="stars"></div>
+      <button id="back" class="big-btn" data-i18n-label="chooseAnother"><svg><use href="#i-home"/></svg></button>
+    </div>
+    <div id="err" hidden data-i18n-html="cantPlay"></div>
+  </div>
+  <div id="progress"><div id="bar"></div></div>
+  <div id="exit-spot" aria-hidden="true"></div>
+</section>
+
+<section id="gate" class="sheet" hidden>
+  <div class="inner">
+    <h2 data-i18n="gateTitle"></h2>
+    <p data-i18n="gateAsk"></p>
+    <div id="gate-q"></div>
+    <form id="gate-form" class="row" style="justify-content:center">
+      <input id="gate-a" inputmode="numeric" autocomplete="off" style="max-width:8rem;text-align:center">
+      <button class="btn primary" data-i18n="enter"></button>
+    </form>
+    <button id="gate-cancel" class="btn" data-i18n="cancel"></button>
+  </div>
+</section>
+
+
+<script src="i18n.js"></script>
+<script>
+// The whole app (settings, categories, videos) comes from /api/data. The last answer is kept
+// on the phone so the app still opens without internet.
+const CACHE = 'cineminha.data.v1';
+const SECTIONS = ['music', 'cartoons'];
+const HIGHLIGHTS = 3;
+
+const $ = (s) => document.querySelector(s);
+const thumb = (id, q = 'hqdefault') => `https://i.ytimg.com/vi/${id}/${q}.jpg`;
+
+let data = cached() || { setup: true, settings: { name: 'Cineminha' }, categories: [], videos: [] };
+let CATEGORIES = [];
+let videos = [];
+let T = STRINGS.pt;
+let player = null, current = null, poll = null, ended = false, wakeLock = null, scrollY0 = 0;
+
+const inCat = (id) => videos.filter((v) => v.cat === id);
+
+function cached() { try { return JSON.parse(localStorage.getItem(CACHE)); } catch (e) { return null; } }
+
+function apply(next) {
+  data = next;
+  CATEGORIES = data.categories || [];
+  videos = data.videos || [];
+  T = STRINGS[pickLang(data.settings && data.settings.lang)];
+  const name = (data.settings && data.settings.name) || 'Cineminha';
+  document.title = name;
+  document.documentElement.lang = T.htmlLang;
+  document.querySelectorAll('.app-name').forEach((el) => { el.textContent = name; });
+  document.querySelectorAll('[data-i18n]').forEach((el) => { el.textContent = T[el.dataset.i18n]; });
+  document.querySelectorAll('[data-i18n-html]').forEach((el) => { el.innerHTML = T[el.dataset.i18nHtml]; });
+  document.querySelectorAll('[data-i18n-label]').forEach((el) => el.setAttribute('aria-label', T[el.dataset.i18nLabel]));
+  const safe = name.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  $('#empty-body').innerHTML = ' ' + T.emptyBody(safe);
+  $('#setup-needed').hidden = data.setup !== false;
+}
+
+async function refresh() {
+  try {
+    const r = await fetch('api/data', { cache: 'no-store' });
+    if (!r.ok) return;
+    const next = await r.json();
+    try { localStorage.setItem(CACHE, JSON.stringify(next)); } catch (e) {}
+    apply(next);
+    // Only redraw while the child is on a list screen, never under a playing video.
+    if ($('#cat-screen').hidden && $('#player-screen').hidden) {
+      renderHome();
+      if (!$('#start').hidden && !hasChooser()) { $('#start').hidden = true; $('#home').hidden = false; }
+      else if ($('#start').hidden && hasChooser() && history.state && history.state.s === 'home') showStart();
+    }
+  } catch (e) {}
+}
+
+/* ---------- Home + category screens ---------- */
+function poster(v) {
+  const b = document.createElement('button');
+  b.className = 'poster';
+  b.setAttribute('aria-label', v.title || T.video);
+  b.innerHTML = `<img src="${thumb(v.id)}" alt="" loading="lazy"><span class="play"><svg><use href="#i-play"/></svg></span>`;
+  b.addEventListener('click', () => openVideo(v));
+  return b;
+}
+
+let section = 'music';
+const sectionsWithVideos = () => SECTIONS.filter((id) => CATEGORIES.some((c) => c.section === id && inCat(c.id).length));
+// The music/cartoons chooser only makes sense once both have videos.
+const hasChooser = () => sectionsWithVideos().length > 1;
+
+function renderHome() {
+  const box = $('#cats');
+  box.innerHTML = '';
+  $('#empty').hidden = videos.length > 0 || data.setup === false;
+  if (!hasChooser()) section = sectionsWithVideos()[0] || 'music';
+  $('#home-back').hidden = !hasChooser();
+  for (const c of CATEGORIES.filter((c) => c.section === section)) {
+    const list = inCat(c.id);
+    if (!list.length) continue;
+    const sec = document.createElement('section');
+    sec.className = 'cat';
+    sec.style.setProperty('--c', c.color);
+    sec.innerHTML = `<div class="cat-head"><h2></h2></div><div class="grid"></div>`;
+    sec.querySelector('h2').textContent = c.name;
+    const grid = sec.querySelector('.grid');
+    list.slice(0, HIGHLIGHTS).forEach((v) => grid.appendChild(poster(v)));
+    if (list.length > HIGHLIGHTS) {
+      const more = document.createElement('button');
+      more.className = 'more';
+      more.setAttribute('aria-label', T.seeAll(c.name));
+      more.innerHTML = `<svg><use href="#i-home"/></svg>`;
+      more.addEventListener('click', () => openCategory(c));
+      sec.querySelector('.cat-head').appendChild(more);
+    }
+    box.appendChild(sec);
+  }
+}
+
+function openCategory(c) {
+  history.pushState({ s: 'cat' }, '');
+  const scr = $('#cat-screen');
+  scr.style.setProperty('--c', c.color);
+  $('#cat-name').textContent = c.name;
+  const grid = $('#cat-grid');
+  grid.innerHTML = '';
+  inCat(c.id).forEach((v) => grid.appendChild(poster(v)));
+  $('#home').hidden = true;
+  scr.hidden = false;
+  window.scrollTo(0, 0);
+}
+function closeCategory() {
+  $('#cat-screen').hidden = true;
+  $('#home').hidden = false;
+}
+$('#cat-back').addEventListener('click', () => history.back());
+$('#home-back').addEventListener('click', () => history.back());
+
+function showStart() {
+  $('#home').hidden = true;
+  $('#start').hidden = false;
+}
+function openSection(id) {
+  history.pushState({ s: 'section' }, '');
+  section = id;
+  renderHome();
+  $('#start').hidden = true;
+  $('#home').hidden = false;
+  window.scrollTo(0, 0);
+}
+document.querySelectorAll('.choice').forEach((b) => b.addEventListener('click', () => openSection(b.dataset.section)));
+
+/* ---------- Player ---------- */
+let apiReady = false, pending = null;
+window.onYouTubeIframeAPIReady = () => { apiReady = true; if (pending) { const p = pending; pending = null; p(); } };
+(function loadApi() {
+  const s = document.createElement('script');
+  s.src = 'https://www.youtube.com/iframe_api';
+  document.head.appendChild(s);
+})();
+
+function openVideo(v) {
+  current = v; ended = false;
+  scrollY0 = window.scrollY;
+  $('#player-screen').hidden = false;
+  $('#end').hidden = true; $('#err').hidden = true;
+  $('#bar').style.width = '0';
+  showCover(true);
+  goFullscreen();
+  const create = () => {
+    $('#yt').replaceWith(Object.assign(document.createElement('div'), { id: 'yt' }));
+    player = new YT.Player('yt', {
+      host: 'https://www.youtube-nocookie.com',
+      videoId: v.id,
+      playerVars: { controls: 0, disablekb: 1, fs: 0, rel: 0, iv_load_policy: 3, playsinline: 1, modestbranding: 1, cc_load_policy: 0, origin: location.origin },
+      events: {
+        onReady: () => { try { player.playVideo(); } catch (e) {} },
+        onStateChange: onState,
+        onError: () => { $('#err').hidden = false; showCover(false); },
+      },
+    });
+  };
+  apiReady ? create() : (pending = create);
+}
+
+function onState(e) {
+  if (ended) return;
+  const S = YT.PlayerState;
+  if (e.data === S.PLAYING) { showCover(false); startPoll(); keepAwake(true); }
+  else if (e.data === S.PAUSED) { showCover(true); }
+  else if (e.data === S.ENDED) { finish(); }
+}
+
+function showCover(on) {
+  const c = $('#cover');
+  c.style.backgroundImage = current ? `url(${thumb(current.id)})` : '';
+  c.hidden = !on;
+}
+
+function startPoll() {
+  clearInterval(poll);
+  poll = setInterval(() => {
+    if (!player || !player.getDuration) return;
+    const d = player.getDuration(), t = player.getCurrentTime();
+    if (d > 0) {
+      $('#bar').style.width = Math.min(100, (t / d) * 100) + '%';
+      // Cover a fraction of a second early so YouTube's end screen with suggestions never shows.
+      if (t >= d - 0.35) finish();
+    }
+  }, 200);
+}
+
+function finish() {
+  if (ended) return;
+  ended = true;
+  clearInterval(poll);
+  $('#bar').style.width = '100%';
+  $('#end').hidden = false;
+  $('#cover').hidden = true;
+  try { player.pauseVideo(); } catch (e) {}
+  confetti();
+  keepAwake(false);
+}
+
+function confetti() {
+  const box = $('#stars'); box.innerHTML = '';
+  const bits = ['⭐', '🌟', '✨', '🎉', '💛'];
+  for (let i = 0; i < 14; i++) {
+    const s = document.createElement('span');
+    s.textContent = bits[i % bits.length];
+    s.style.left = (5 + Math.random() * 85) + '%';
+    s.style.top = (5 + Math.random() * 80) + '%';
+    s.style.animationDelay = (i * 60) + 'ms';
+    box.appendChild(s);
+  }
+}
+
+function closePlayer() {
+  clearInterval(poll);
+  try { player && player.destroy(); } catch (e) {}
+  player = null; current = null;
+  $('#player-screen').hidden = true;
+  keepAwake(false);
+  leaveFullscreen();
+  requestAnimationFrame(() => window.scrollTo(0, scrollY0));
+}
+
+async function goFullscreen() {
+  try {
+    if (!document.fullscreenElement) await document.documentElement.requestFullscreen({ navigationUI: 'hide' });
+    await screen.orientation.lock('landscape');
+  } catch (e) {}
+}
+function leaveFullscreen() {
+  try { screen.orientation.unlock(); } catch (e) {}
+  try { if (document.fullscreenElement) document.exitFullscreen(); } catch (e) {}
+}
+async function keepAwake(on) {
+  try {
+    if (on && !wakeLock && navigator.wakeLock) wakeLock = await navigator.wakeLock.request('screen');
+    if (!on && wakeLock) { await wakeLock.release(); wakeLock = null; }
+  } catch (e) {}
+}
+
+$('#cover').addEventListener('click', () => { try { player.playVideo(); } catch (e) {} });
+$('#shield').addEventListener('click', () => { try { player.pauseVideo(); } catch (e) {} });
+$('#back').addEventListener('click', () => history.back());
+
+// Every screen is a history entry, so the Android back button and the on-screen buttons agree.
+// While a video is still playing, back does nothing.
+history.replaceState({ s: 'home' }, '');
+window.addEventListener('popstate', () => {
+  if (!$('#player-screen').hidden) {
+    if (!ended) { history.pushState({ s: 'player' }, ''); return; }
+    closePlayer();
+  } else if (!$('#cat-screen').hidden) closeCategory();
+  else if (!$('#home').hidden && hasChooser()) showStart();
+});
+const _open = openVideo;
+openVideo = (v) => { history.pushState({ s: 'player' }, ''); _open(v); };
+
+/* ---------- Hold-to-open (parent only) ---------- */
+function onHold(el, ms, cb) {
+  let t = null;
+  const start = (e) => { clear(); t = setTimeout(() => { t = null; cb(); }, ms); };
+  const clear = () => { if (t) { clearTimeout(t); t = null; } };
+  el.addEventListener('pointerdown', start);
+  ['pointerup', 'pointerleave', 'pointercancel'].forEach((ev) => el.addEventListener(ev, clear));
+  el.addEventListener('contextmenu', (e) => e.preventDefault());
+}
+onHold($('#logo'), 3000, openGate);
+onHold($('#start-logo'), 3000, openGate);
+onHold($('#exit-spot'), 3000, () => { ended = true; history.back(); });
+
+let answer = 0;
+function openGate() {
+  const a = 3 + Math.floor(Math.random() * 7), b = 3 + Math.floor(Math.random() * 7);
+  answer = a * b;
+  $('#gate-q').textContent = `${a} × ${b} = ?`;
+  $('#gate-a').value = '';
+  $('#gate').hidden = false;
+  $('#gate-a').focus();
+}
+$('#gate-form').addEventListener('submit', (e) => {
+  e.preventDefault();
+  if (parseInt($('#gate-a').value, 10) === answer) { $('#gate').hidden = true; openParent(); }
+  else openGate();
+});
+$('#gate-cancel').addEventListener('click', () => { $('#gate').hidden = true; });
+
+/* ---------- Parent area ---------- */
+function openParent() { location.href = 'parents.html'; }
+
+apply(data);
+renderHome();
+if (hasChooser()) showStart();
+refresh();
+</script>
+</body>
+</html>

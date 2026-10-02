@@ -1,0 +1,506 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1f2a44">
+<meta name="robots" content="noindex">
+<title>Cineminha</title>
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Nunito:wght@400;700&display=swap">
+<style>
+/* Layout: one narrow column of forms and lists, same palette as the kids' app. */
+:root {
+  --night: #1f2a44; --night-2: #2b3a5e; --night-3: #364a75;
+  --popcorn: #ffd23f; --cherry: #ff6b6b; --mint: #4ecdc4;
+  --ink: #fdfaf2; --ink-dim: #b9c1d9;
+  --display: "Baloo 2", "Trebuchet MS", system-ui, sans-serif;
+  --body: "Nunito", system-ui, -apple-system, "Segoe UI", sans-serif;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--night); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.45;
+  padding: max(16px, env(safe-area-inset-top)) 16px max(40px, env(safe-area-inset-bottom));
+}
+[hidden] { display: none !important; }
+main { max-width: 38rem; margin: 0 auto; display: grid; gap: 32px; }
+header { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+h1 { margin: 0; font-family: var(--display); font-weight: 800; font-size: 1.8rem; display: flex; align-items: center; gap: 10px; text-wrap: balance; }
+h1 svg { width: 1.2em; height: 1.2em; flex: none; }
+h2 { margin: 0; font-family: var(--display); font-weight: 800; font-size: 1.3rem; }
+p { margin: 0; color: var(--ink-dim); }
+a { color: var(--popcorn); font-weight: 700; }
+section, form { display: grid; gap: 14px; }
+.field { display: grid; gap: 6px; }
+label, .label { font-weight: 700; font-size: .95rem; }
+.hint { font-size: .85rem; color: var(--ink-dim); font-weight: 400; }
+input, select {
+  width: 100%; font: inherit; color: var(--ink); background: var(--night-2);
+  border: 2px solid transparent; border-radius: 12px; padding: 12px 14px;
+}
+input:focus, select:focus { border-color: var(--popcorn); outline: none; }
+.check { display: flex; gap: 10px; align-items: flex-start; font-weight: 700; }
+.check input { width: 22px; height: 22px; flex: none; margin: 1px 0 0; accent-color: var(--popcorn); }
+button { font: inherit; cursor: pointer; border: 0; border-radius: 12px; padding: 12px 18px; font-weight: 700; color: var(--ink); background: var(--night-2); }
+button.primary { background: var(--popcorn); color: var(--night); }
+button.danger { background: var(--cherry); color: #2a0f0f; }
+button.small { padding: 7px 11px; font-size: .88rem; border-radius: 10px; background: var(--night-3); }
+button.small.danger { background: var(--cherry); }
+button:disabled { opacity: .55; cursor: default; }
+button:focus-visible, a:focus-visible, summary:focus-visible { outline: 3px solid var(--popcorn); outline-offset: 2px; }
+.row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.msg { min-height: 1.4em; font-weight: 700; }
+.msg.ok { color: var(--mint); } .msg.bad { color: var(--cherry); }
+.preview { display: grid; grid-template-columns: 120px minmax(0, 1fr); gap: 12px; align-items: center; background: var(--night-2); border-radius: 14px; padding: 8px; }
+img.thumb { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 8px; display: block; background: var(--night-3); }
+
+/* Packs in the setup screen */
+.packs { display: grid; gap: 10px; }
+.pack { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 12px; align-items: center; background: var(--night-2); border-radius: 14px; padding: 12px; cursor: pointer; }
+.pack input { width: 22px; height: 22px; accent-color: var(--popcorn); }
+.pack .name { font-weight: 700; display: flex; align-items: center; gap: 8px; }
+.pack .sub { font-size: .85rem; color: var(--ink-dim); }
+.dot { width: 12px; height: 12px; border-radius: 50%; background: var(--c); flex: none; }
+
+/* Categories */
+.cats { display: grid; gap: 12px; }
+.cat { background: var(--night-2); border-radius: 16px; padding: 12px; display: grid; gap: 10px; }
+.cat-head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.cat-head .title { font-family: var(--display); font-weight: 800; font-size: 1.1rem; display: flex; align-items: center; gap: 8px; min-width: 0; flex: 1 1 12rem; }
+.cat-head .title span { overflow-wrap: anywhere; }
+.cat .sub { font-size: .85rem; color: var(--ink-dim); }
+.videos { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.video { display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 10px; align-items: center; background: var(--night); border-radius: 12px; padding: 6px; }
+.video .t { font-weight: 700; font-size: .95rem; overflow-wrap: anywhere; }
+.video .meta { min-width: 0; display: grid; gap: 6px; }
+.video .star { color: var(--popcorn); }
+.colors { display: flex; gap: 8px; flex-wrap: wrap; }
+.colors label { width: 36px; height: 36px; border-radius: 50%; background: var(--c); cursor: pointer; display: grid; place-items: center; }
+.colors input { position: absolute; opacity: 0; pointer-events: none; }
+.colors label:has(input:checked) { outline: 3px solid var(--ink); outline-offset: 2px; }
+.colors label:has(input:focus-visible) { outline: 3px solid var(--popcorn); outline-offset: 2px; }
+.empty { padding: 14px; border-radius: 12px; border: 2px dashed var(--night-3); color: var(--ink-dim); text-align: center; }
+#pin-screen { max-width: 22rem; margin: 10vh auto 0; text-align: center; }
+#pin { text-align: center; font-size: 1.4rem; letter-spacing: .2em; }
+.lang-pick { max-width: 12rem; margin: 0 auto; }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="logo" viewBox="0 0 32 32"><rect x="3" y="7" width="26" height="19" rx="5" fill="#ffd23f"/><path d="M13 12v9l8-4.5z" fill="#1f2a44"/></symbol>
+</svg>
+
+<!-- 1. PIN -->
+<main id="pin-screen" hidden>
+  <h1 style="justify-content:center"><svg><use href="#logo"/></svg><span class="app-name">Cineminha</span></h1>
+  <p data-t="pinIntro"></p>
+  <form id="pin-form">
+    <input id="pin" type="password" inputmode="numeric" autocomplete="current-password">
+    <button class="primary" data-t="enter"></button>
+    <div id="pin-msg" class="msg bad" role="status"></div>
+  </form>
+  <select class="lang-pick" id="lang-pin"></select>
+</main>
+
+<!-- 2. First-time setup -->
+<main id="setup-screen" hidden>
+  <header>
+    <h1><svg><use href="#logo"/></svg><span data-t="setupTitle"></span></h1>
+  </header>
+  <p data-t="setupIntro"></p>
+  <form id="setup-form">
+    <div class="field">
+      <label for="setup-lang" data-t="language"></label>
+      <select id="setup-lang"></select>
+    </div>
+    <div class="field">
+      <label for="setup-name" data-t="appName"></label>
+      <input id="setup-name" maxlength="30" value="Cineminha">
+      <span class="hint" data-t="appNameHint"></span>
+    </div>
+    <div class="field">
+      <span class="label" data-t="packsTitle"></span>
+      <span class="hint" data-t="packsIntro"></span>
+      <div id="setup-packs" class="packs"></div>
+    </div>
+    <button id="setup-btn" class="primary" data-t="createApp"></button>
+    <div id="setup-msg" class="msg" role="status"></div>
+  </form>
+</main>
+
+<!-- 3. Everyday management -->
+<main id="manage-screen" hidden>
+  <header>
+    <h1><svg><use href="#logo"/></svg><span data-t="parentsTitle"></span></h1>
+    <a href="./" id="open-app"></a>
+  </header>
+
+  <section>
+    <h2 data-t="addVideo"></h2>
+    <form id="add-form">
+      <div class="field">
+        <label for="url" data-t="link"></label>
+        <input id="url" placeholder="https://youtu.be/…" autocomplete="off" inputmode="url" required>
+      </div>
+      <div id="preview" class="preview" hidden><img class="thumb" alt=""><span id="preview-text"></span></div>
+      <div class="field">
+        <label for="cat" data-t="category"></label>
+        <select id="cat" required></select>
+      </div>
+      <label class="check"><input id="top" type="checkbox"> <span data-t="highlight"></span></label>
+      <div class="field">
+        <label for="by"><span data-t="yourName"></span> <span class="hint" data-t="yourNameHint"></span></label>
+        <input id="by" autocomplete="given-name" maxlength="40">
+      </div>
+      <div class="field">
+        <label for="title"><span data-t="videoName"></span> <span class="hint" data-t="videoNameHint"></span></label>
+        <input id="title" autocomplete="off" maxlength="120">
+      </div>
+      <button id="add-btn" class="primary" data-t="addToApp"></button>
+      <div id="add-msg" class="msg" role="status"></div>
+    </form>
+  </section>
+
+  <section>
+    <h2 data-t="categoriesTitle"></h2>
+    <p data-t="categoriesIntro"></p>
+    <div id="cats" class="cats"></div>
+  </section>
+
+  <section>
+    <h2 data-t="newCategory"></h2>
+    <form id="cat-form">
+      <div class="field">
+        <label for="cat-name" data-t="catName"></label>
+        <input id="cat-name" maxlength="40" required>
+      </div>
+      <div class="field">
+        <label for="cat-section" data-t="section"></label>
+        <select id="cat-section"></select>
+      </div>
+      <div class="field">
+        <span class="label" data-t="color"></span>
+        <div class="colors" id="cat-colors"></div>
+      </div>
+      <button class="primary" data-t="createCategory"></button>
+      <div id="cat-msg" class="msg" role="status"></div>
+    </form>
+  </section>
+
+  <section>
+    <h2 data-t="addPack"></h2>
+    <form id="pack-form">
+      <select id="pack-select" aria-label="pack"></select>
+      <button id="pack-btn" class="primary" data-t="addPackBtn"></button>
+      <div id="pack-msg" class="msg" role="status"></div>
+    </form>
+  </section>
+
+  <section>
+    <h2 data-t="settingsTitle"></h2>
+    <form id="settings-form">
+      <div class="field">
+        <label for="set-name" data-t="appName"></label>
+        <input id="set-name" maxlength="30">
+      </div>
+      <div class="field">
+        <label for="set-lang" data-t="language"></label>
+        <select id="set-lang"></select>
+      </div>
+      <button class="primary" data-t="save"></button>
+      <div id="settings-msg" class="msg" role="status"></div>
+    </form>
+  </section>
+</main>
+
+<main id="load-error" hidden><p class="empty" data-t="loadError"></p></main>
+
+<script src="i18n.js"></script>
+<script>
+const $ = (s) => document.querySelector(s);
+const COLORS = ['#ff8c42', '#4ecdc4', '#ffd23f', '#f78fb3', '#ff6b6b', '#a78bfa', '#7ed957', '#b9c1d9'];
+const thumb = (id) => `https://i.ytimg.com/vi/${id}/mqdefault.jpg`;
+const store = {
+  get(k) { try { return localStorage.getItem(k) || ''; } catch (e) { return ''; } },
+  set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} },
+  del(k) { try { localStorage.removeItem(k); } catch (e) {} },
+};
+
+let pin = store.get('cineminha.pin');
+let data = null, packs = [];
+let lang = pickLang(store.get('cineminha.lang'));
+let T = STRINGS[lang];
+const open = new Set(); // categories whose video list is expanded
+
+function parseId(text) {
+  text = (text || '').trim();
+  if (/^[\w-]{11}$/.test(text)) return text;
+  try {
+    const u = new URL(text);
+    if (u.hostname.endsWith('youtu.be')) return u.pathname.slice(1, 12);
+    if (u.searchParams.get('v')) return u.searchParams.get('v').slice(0, 11);
+    const m = u.pathname.match(/\/(?:shorts|embed|live|v)\/([\w-]{11})/);
+    if (m) return m[1];
+  } catch (e) {}
+  return null;
+}
+
+const errText = (code) => (ERRORS[lang] && ERRORS[lang][code]) || T.genericError;
+async function api(body) {
+  const r = await fetch('api/data', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ pin, ...body }) });
+  const res = await r.json().catch(() => ({}));
+  if (!r.ok) throw Object.assign(new Error(errText(res.error)), { code: res.error });
+  return res;
+}
+async function load() {
+  const [d, p] = await Promise.all([
+    fetch('api/data', { cache: 'no-store' }).then((r) => r.json()),
+    fetch('api/data?packs', { cache: 'no-store' }).then((r) => r.json()),
+  ]);
+  if (d.error) throw new Error(errText(d.error));
+  data = d; packs = p.packs || [];
+  if (data.setup && data.settings.lang) setLang(data.settings.lang, false);
+}
+function say(el, text, ok) { el.textContent = text; el.className = 'msg ' + (ok ? 'ok' : 'bad'); }
+function langOptions(sel) { sel.innerHTML = Object.entries(LANGS).map(([k, v]) => `<option value="${k}">${v}</option>`).join(''); sel.value = lang; }
+
+function setLang(next, remember = true) {
+  lang = STRINGS[next] ? next : 'pt';
+  T = STRINGS[lang];
+  if (remember) store.set('cineminha.lang', lang);
+  document.documentElement.lang = T.htmlLang;
+  document.querySelectorAll('[data-t]').forEach((el) => { el.textContent = T[el.dataset.t]; });
+  ['#lang-pin', '#setup-lang', '#set-lang'].forEach((s) => { $(s).value = lang; });
+}
+
+function show(screen) {
+  ['#pin-screen', '#setup-screen', '#manage-screen', '#load-error'].forEach((s) => { $(s).hidden = s !== screen; });
+}
+
+/* ---------- Start ---------- */
+async function start() {
+  try { await load(); } catch (e) { show('#load-error'); $('#load-error p').textContent = e.message || T.loadError; return; }
+  const name = (data.settings && data.settings.name) || 'Cineminha';
+  document.title = name;
+  document.querySelectorAll('.app-name').forEach((el) => { el.textContent = name; });
+  if (!pin) return show('#pin-screen');
+  try { await api({ action: 'check' }); } catch (e) {
+    store.del('cineminha.pin'); pin = '';
+    say($('#pin-msg'), e.message, false);
+    return show('#pin-screen');
+  }
+  store.set('cineminha.pin', pin);
+  if (!data.setup) { renderSetup(); return show('#setup-screen'); }
+  renderManage();
+  show('#manage-screen');
+}
+$('#pin-form').addEventListener('submit', (e) => { e.preventDefault(); pin = $('#pin').value.trim(); start(); });
+$('#lang-pin').addEventListener('change', (e) => setLang(e.target.value));
+
+/* ---------- Setup ---------- */
+function packLine(p) {
+  return `${T.videosCount(p.count)} · ${T[p.section]} · ${T.contentLang[p.contentLang] || p.contentLang}`;
+}
+function renderSetup() {
+  // Packs in the parent's language first.
+  const sorted = packs.slice().sort((a, b) => (b.contentLang === lang) - (a.contentLang === lang));
+  $('#setup-packs').innerHTML = '';
+  for (const p of sorted) {
+    const row = document.createElement('label');
+    row.className = 'pack';
+    row.innerHTML = `<input type="checkbox" value="${p.id}"><span><span class="name"><span class="dot"></span><span class="n"></span></span><span class="sub"></span></span>`;
+    row.querySelector('.dot').style.setProperty('--c', p.color);
+    row.querySelector('.n').textContent = p.name[lang] || p.name.en;
+    row.querySelector('.sub').textContent = packLine(p);
+    $('#setup-packs').appendChild(row);
+  }
+}
+$('#setup-lang').addEventListener('change', (e) => { setLang(e.target.value); renderSetup(); });
+$('#setup-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const btn = $('#setup-btn');
+  btn.disabled = true; btn.textContent = T.creating;
+  try {
+    const chosen = [...document.querySelectorAll('#setup-packs input:checked')].map((i) => i.value);
+    await api({ action: 'setup', lang, name: $('#setup-name').value, packs: chosen });
+    await start();
+  } catch (err) { say($('#setup-msg'), err.message, false); }
+  finally { btn.disabled = false; btn.textContent = T.createApp; }
+});
+
+/* ---------- Manage ---------- */
+const catName = (id) => (data.categories.find((c) => c.id === id) || {}).name || '';
+
+function renderManage() {
+  const name = data.settings.name;
+  $('#open-app').textContent = T.openApp(name);
+  $('#set-name').value = name;
+
+  const sel = $('#cat'), keep = sel.value;
+  sel.innerHTML = `<option value="">${T.choose}</option>` + ['music', 'cartoons'].map((s) =>
+    `<optgroup label="${T[s]}">` + data.categories.filter((c) => c.section === s).map((c) => `<option value="${c.id}"></option>`).join('') + '</optgroup>').join('');
+  sel.querySelectorAll('option[value]:not([value=""])').forEach((o) => { o.textContent = catName(o.value); });
+  sel.value = keep;
+
+  $('#cat-section').innerHTML = ['music', 'cartoons'].map((s) => `<option value="${s}">${T[s]}</option>`).join('');
+  if (!$('#cat-colors').children.length) {
+    $('#cat-colors').innerHTML = COLORS.map((c, i) => `<label style="--c:${c}" title="${c}"><input type="radio" name="color" value="${c}" ${i === 0 ? 'checked' : ''}></label>`).join('');
+  }
+
+  const left = packs.filter((p) => !data.categories.some((c) => c.pack === p.id));
+  $('#pack-select').innerHTML = left.map((p) => `<option value="${p.id}"></option>`).join('');
+  $('#pack-select').querySelectorAll('option').forEach((o) => {
+    const p = packs.find((x) => x.id === o.value);
+    o.textContent = `${p.name[lang] || p.name.en} (${packLine(p)})`;
+  });
+  $('#pack-select').hidden = $('#pack-btn').hidden = !left.length;
+  if (!left.length) say($('#pack-msg'), T.allPacksAdded, true);
+
+  renderCats();
+}
+
+function renderCats() {
+  const box = $('#cats');
+  box.innerHTML = '';
+  if (!data.categories.length) { box.innerHTML = `<div class="empty"></div>`; box.firstChild.textContent = T.noCategories; return; }
+  data.categories.forEach((c, ci) => {
+    const list = data.videos.filter((v) => v.cat === c.id);
+    const el = document.createElement('div');
+    el.className = 'cat';
+    el.style.setProperty('--c', c.color);
+    el.innerHTML = `<div class="cat-head">
+        <div class="title"><span class="dot"></span><span class="n"></span></div>
+        <button class="small" data-a="up" aria-label="${T.moveUp}" ${ci === 0 ? 'disabled' : ''}>↑</button>
+        <button class="small" data-a="down" aria-label="${T.moveDown}" ${ci === data.categories.length - 1 ? 'disabled' : ''}>↓</button>
+      </div>
+      <div class="sub"></div>
+      <div class="row">
+        <button class="small" data-a="toggle"></button>
+        <button class="small" data-a="rename">${T.rename}</button>
+        <button class="small" data-a="delete">${T.del}</button>
+      </div>
+      <form class="row rename" hidden><input maxlength="40" aria-label="${T.catName}" style="flex:1 1 12rem"><button class="small primary">${T.save}</button></form>
+      <ul class="videos" hidden></ul>`;
+    el.querySelector('.n').textContent = c.name;
+    el.querySelector('.sub').textContent = `${T[c.section]} · ${T.videosCount(list.length)}`;
+    const toggle = el.querySelector('[data-a="toggle"]');
+    toggle.textContent = open.has(c.id) ? T.hideVideos : T.showVideos;
+    toggle.hidden = !list.length;
+
+    el.querySelector('[data-a="up"]').onclick = () => act({ action: 'moveCategory', id: c.id, dir: -1 });
+    el.querySelector('[data-a="down"]').onclick = () => act({ action: 'moveCategory', id: c.id, dir: 1 });
+    toggle.onclick = () => { open.has(c.id) ? open.delete(c.id) : open.add(c.id); renderCats(); };
+    const form = el.querySelector('.rename');
+    el.querySelector('[data-a="rename"]').onclick = () => { form.hidden = !form.hidden; form.querySelector('input').value = c.name; form.querySelector('input').focus(); };
+    form.onsubmit = (e) => { e.preventDefault(); act({ action: 'editCategory', id: c.id, name: form.querySelector('input').value }); };
+    const del = el.querySelector('[data-a="delete"]');
+    del.onclick = () => {
+      if (!del.dataset.sure) { del.dataset.sure = '1'; del.textContent = T.confirmDelCat(list.length); del.classList.add('danger'); return; }
+      act({ action: 'deleteCategory', id: c.id });
+    };
+
+    if (open.has(c.id)) {
+      const ul = el.querySelector('.videos');
+      ul.hidden = false;
+      list.forEach((v, i) => ul.appendChild(videoRow(v, i, list.length)));
+    }
+    box.appendChild(el);
+  });
+}
+
+function videoRow(v, i, n) {
+  const li = document.createElement('li');
+  li.className = 'video';
+  li.innerHTML = `<img class="thumb" src="${thumb(v.id)}" alt="" loading="lazy">
+    <div class="meta"><div class="t"></div><div class="row">
+      <button class="small" data-a="top" ${i === 0 ? 'disabled' : ''}>${T.toTop}</button>
+      <button class="small" data-a="up" aria-label="${T.moveUp}" ${i === 0 ? 'disabled' : ''}>↑</button>
+      <button class="small" data-a="down" aria-label="${T.moveDown}" ${i === n - 1 ? 'disabled' : ''}>↓</button>
+      <button class="small" data-a="remove">${T.remove}</button>
+    </div></div>`;
+  const t = li.querySelector('.t');
+  if (i < 3) t.innerHTML = '<span class="star">★</span> ';
+  t.append(v.title + (v.by ? ` (${T.by(v.by)})` : ''));
+  li.querySelector('[data-a="top"]').onclick = () => act({ action: 'moveVideo', id: v.id, cat: v.cat, dir: 'top' });
+  li.querySelector('[data-a="up"]').onclick = () => act({ action: 'moveVideo', id: v.id, cat: v.cat, dir: -1 });
+  li.querySelector('[data-a="down"]').onclick = () => act({ action: 'moveVideo', id: v.id, cat: v.cat, dir: 1 });
+  const rm = li.querySelector('[data-a="remove"]');
+  rm.onclick = () => {
+    if (!rm.dataset.sure) { rm.dataset.sure = '1'; rm.textContent = T.confirm; rm.classList.add('danger'); return; }
+    act({ action: 'removeVideo', id: v.id, cat: v.cat });
+  };
+  return li;
+}
+
+// Run one change, then reload and redraw. Returns the API reply (or throws).
+async function act(body, msgEl) {
+  document.body.style.cursor = 'progress';
+  try {
+    const res = await api(body);
+    await load();
+    renderManage();
+    return res;
+  } catch (err) {
+    if (msgEl) say(msgEl, err.message, false); else alert(err.message);
+    if (err.code === 'wrong_pin') { store.del('cineminha.pin'); location.reload(); }
+    throw err;
+  } finally { document.body.style.cursor = ''; }
+}
+
+$('#url').addEventListener('input', () => {
+  const id = parseId($('#url').value);
+  $('#preview').hidden = !id;
+  if (id) $('#preview img').src = thumb(id);
+});
+$('#by').value = store.get('cineminha.by');
+
+$('#add-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const btn = $('#add-btn'), msg = $('#add-msg');
+  if (!parseId($('#url').value)) return say(msg, T.notYoutube, false);
+  store.set('cineminha.by', $('#by').value.trim());
+  btn.disabled = true; say(msg, T.adding, true);
+  try {
+    const { video } = await act({ action: 'addVideo', url: $('#url').value, cat: $('#cat').value, top: $('#top').checked, by: $('#by').value, title: $('#title').value }, msg);
+    say(msg, T.added(video.title), true);
+    $('#url').value = ''; $('#title').value = ''; $('#top').checked = false; $('#preview').hidden = true;
+  } catch (err) {} finally { btn.disabled = false; }
+});
+
+$('#cat-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const color = (document.querySelector('#cat-colors input:checked') || {}).value;
+  try {
+    await act({ action: 'addCategory', name: $('#cat-name').value, section: $('#cat-section').value, color }, $('#cat-msg'));
+    $('#cat-name').value = ''; say($('#cat-msg'), T.saved, true);
+  } catch (err) {}
+});
+
+$('#pack-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const btn = $('#pack-btn');
+  btn.disabled = true;
+  try { await act({ action: 'addPack', pack: $('#pack-select').value }, $('#pack-msg')); say($('#pack-msg'), T.saved, true); }
+  catch (err) {} finally { btn.disabled = false; }
+});
+
+$('#settings-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  try {
+    await act({ action: 'settings', name: $('#set-name').value, lang: $('#set-lang').value }, $('#settings-msg'));
+    setLang($('#set-lang').value);
+    renderManage();
+    say($('#settings-msg'), T.saved, true);
+  } catch (err) {}
+});
+
+['#lang-pin', '#setup-lang', '#set-lang'].forEach((s) => langOptions($(s)));
+setLang(lang, false);
+start();
+</script>
+</body>
+</html>

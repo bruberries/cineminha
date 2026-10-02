@@ -1,0 +1,98 @@
+[
+  {
+    "id": "tiqueque",
+    "name": {
+      "pt": "Tiquequê",
+      "en": "Tiquequê"
+    },
+    "section": "music",
+    "contentLang": "pt",
+    "color": "#ff8c42",
+    "count": 150,
+    "source": "Tiquequê"
+  },
+  {
+    "id": "pe-de-sonho",
+    "name": {
+      "pt": "Pé de Sonho",
+      "en": "Pé de Sonho"
+    },
+    "section": "music",
+    "contentLang": "pt",
+    "color": "#4ecdc4",
+    "count": 95,
+    "source": "Pé de Sonho"
+  },
+  {
+    "id": "palavra-cantada",
+    "name": {
+      "pt": "Palavra Cantada",
+      "en": "Palavra Cantada"
+    },
+    "section": "music",
+    "contentLang": "pt",
+    "color": "#f78fb3",
+    "count": 411,
+    "source": "Palavra Cantada Oficial"
+  },
+  {
+    "id": "sesame-street-songs",
+    "name": {
+      "pt": "Vila Sésamo (músicas)",
+      "en": "Sesame Street songs"
+    },
+    "section": "music",
+    "contentLang": "en",
+    "color": "#ff6b6b",
+    "count": 5,
+    "source": "Sesame Street"
+  },
+  {
+    "id": "backyardigans-pt",
+    "name": {
+      "pt": "Backyardigans (dublado)",
+      "en": "Backyardigans (Brazilian Portuguese)"
+    },
+    "section": "cartoons",
+    "contentLang": "pt",
+    "color": "#7ed957",
+    "count": 80,
+    "source": "Treehouse Direct Brasil"
+  },
+  {
+    "id": "backyardigans-en",
+    "name": {
+      "pt": "Backyardigans (inglês)",
+      "en": "Backyardigans"
+    },
+    "section": "cartoons",
+    "contentLang": "en",
+    "color": "#7ed957",
+    "count": 80,
+    "source": "The Backyardigans - Official"
+  },
+  {
+    "id": "curious-george-en",
+    "name": {
+      "pt": "George, o Curioso (inglês)",
+      "en": "Curious George"
+    },
+    "section": "cartoons",
+    "contentLang": "en",
+    "color": "#ffd23f",
+    "count": 774,
+    "source": "Curious George Official"
+  },
+  {
+    "id": "curious-george-it",
+    "name": {
+      "pt": "George, o Curioso (italiano)",
+      "en": "Curious George (Italian)"
+    },
+    "section": "cartoons",
+    "contentLang": "it",
+    "color": "#ffd23f",
+    "count": 497,
+    "source": "Curioso come George"
+  }
+]

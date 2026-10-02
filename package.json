@@ -1,0 +1,10 @@
+{
+  "name": "cineminha",
+  "private": true,
+  "type": "module",
+  "description": "A YouTube player for small kids that only plays videos their parents approved.",
+  "scripts": {
+    "dev": "node dev/server.js",
+    "test": "node dev/test.js"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "functions": {
+    "api/data.js": { "includeFiles": "packs/**" }
+  },
+  "rewrites": [
+    { "source": "/manifest.json", "destination": "/api/manifest" },
+    { "source": "/pais", "destination": "/parents.html" },
+    { "source": "/parents", "destination": "/parents.html" }
+  ]
+}
